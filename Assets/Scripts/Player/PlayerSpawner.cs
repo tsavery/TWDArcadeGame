@@ -15,7 +15,7 @@ public class PlayerSpawner : MonoBehaviour {
 	}
 
 	public void SpawnPlayer(int playerNumber) {
-		
+		Debug.Log("SpawnPlayer");
 		GameObject spawnedPlayer = (GameObject)Instantiate(playerObject, transform.position, transform.rotation);
 		spawnedPlayer.GetComponent<Player>().playerNumber = playerNumber;
 		switch (playerNumber) {

@@ -45,12 +45,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\2DTilezoneFiles\Scripts\AutoColliderGenerator.cs" />
+     <Compile Include="Assets\2DTilezoneFiles\Scripts\PixelPerfectCamera.cs" />
+     <Compile Include="Assets\2DTilezoneFiles\Scripts\TileInfo.cs" />
      <Compile Include="Assets\Scripts\Player\Bullet.cs" />
      <Compile Include="Assets\Scripts\Player\Level.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController2D.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerInputReference.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerSpawner.cs" />
+     <Compile Include="Assets\Scripts\Player\PowerUp.cs" />
+     <Compile Include="Assets\Scripts\Player\PowerUpSpawner.cs" />
+     <None Include="Assets\2DTilezoneFiles\CollisionData\roguelikeDungeon_collision_data.cd" />
+     <None Include="Assets\2DTilezoneFiles\CollisionData\dirt-tiles_collision_data.cd" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

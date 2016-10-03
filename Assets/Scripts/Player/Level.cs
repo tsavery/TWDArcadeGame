@@ -6,10 +6,9 @@ public class Level : MonoBehaviour {
 	public int numplayers = 4;
 	// Use this for initialization
 	void Start () {
-		Physics2D.IgnoreLayerCollision(8, 8);
-
+		Physics2D.IgnoreLayerCollision(13, 13);
 		int players = numplayers;
-		GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+		GameObject[] spawners = GameObject.FindGameObjectsWithTag("PlayerSpawner");
 
 		List<int> spawnersUsed = new List<int>();
 		int i;

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{9FACD4F0-2CD0-2369-DD76-BFEBDDEF3699}") = "TWDArcadeGame", "Assembly-CSharp.csproj", "{B0FCFD4C-7032-C035-BA02-5A52A61E89B7}"
 EndProject
+Project("{9FACD4F0-2CD0-2369-DD76-BFEBDDEF3699}") = "TWDArcadeGame", "Assembly-CSharp-Editor.csproj", "{3DDB99E8-504A-48BB-9567-EAD31DF032C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B0FCFD4C-7032-C035-BA02-5A52A61E89B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0FCFD4C-7032-C035-BA02-5A52A61E89B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0FCFD4C-7032-C035-BA02-5A52A61E89B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDB99E8-504A-48BB-9567-EAD31DF032C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDB99E8-504A-48BB-9567-EAD31DF032C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDB99E8-504A-48BB-9567-EAD31DF032C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDB99E8-504A-48BB-9567-EAD31DF032C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
