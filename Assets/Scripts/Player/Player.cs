@@ -8,6 +8,13 @@ public class Player : MonoBehaviour
 	public float jumpHeight = 4f;
 	public float timeToJumpApex = 0.4f;
 
+	public enum PowerUp {
+		Pistol, Crossbow, Shield, None
+	}
+
+	public PowerUp currentPowerUp{get; set;}
+	public int powerUpUsesLeft{get; set;}
+
 	public int maxJumps = 2;
 	int jumpsLeft;
 	//how much gravity is applied to the character
@@ -27,22 +34,32 @@ public class Player : MonoBehaviour
 	float fireSpeed = 2;
 	float fireRate;
 
-	public GameObject projectile;
+	public GameObject bulletProjectile;
+	public GameObject arrowProjectile;
 	private GameObject firedProjectile;
 
 	public int health = 2;
 
 	bool isFacingRight = true;
 
+	Collider2D meleeHitbox;
+	public CircleCollider2D shieldHitBox;
+
+	public bool shieldOn {get; set;}
+
     PlayerController2D controller;
 	// Use this for initialization
 	void Start ()
     {
+		meleeHitbox = GetComponentInChildren<BoxCollider2D>();
 		jumpsLeft = maxJumps;
         controller = GetComponent<PlayerController2D>();
 
 		gravity = -(2 * jumpHeight / Mathf.Pow(timeToJumpApex, 2));
 		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+
+		powerUpUsesLeft = 0;
+		currentPowerUp = PowerUp.None;
 	}
 
 	void FixedUpdate() {
@@ -76,10 +93,17 @@ public class Player : MonoBehaviour
 		}
 
 		if (Input.GetButtonDown("Fire" + playerNumber)) {
-			firedProjectile = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
-			firedProjectile.GetComponent<Rigidbody2D>().AddForce(new Vector2((isFacingRight?1:-1) * 1000, 0));
-			Physics2D.IgnoreCollision(firedProjectile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+			switch (currentPowerUp) {
+			case PowerUp.Pistol : FirePistol();
+				break;
+			case PowerUp.Crossbow : FireArrow();
+				break;
+			}
 		}
+//		if(Input.GetButtonDown("Melee" + playerNumber)) {
+			
+	//	}
+
 		if (velocity.x != 0) {
 			if (Mathf.Sign(velocity.x) == 1) {
 				isFacingRight = true;
@@ -92,7 +116,9 @@ public class Player : MonoBehaviour
 	}
 
 	void OnHit () {
-		GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+		Debug.Log("OnHit");
+		GameObject[] spawners = GameObject.FindGameObjectsWithTag("PlayerSpawner");
 
 		int i = Random.Range (0, spawners.Length);
 
@@ -102,14 +128,33 @@ public class Player : MonoBehaviour
 	}
 
 	void OnBecameInvisible() {
-		GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
+		//GameObject[] spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-		int i = Random.Range (0, spawners.Length);
+		//int i = Random.Range (0, spawners.Length);
 
-		spawners[i].GetComponent<PlayerSpawner>().SpawnPlayer(playerNumber);
+		//spawners[i].GetComponent<PlayerSpawner>().SpawnPlayer(playerNumber);
 
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
+	void FirePistol() {
+
+		if (powerUpUsesLeft > 0) {
+			firedProjectile = Instantiate(bulletProjectile, transform.position, transform.rotation) as GameObject;
+			firedProjectile.GetComponent<Rigidbody2D>().AddForce(new Vector2((isFacingRight?1:-1) * 2000, 0));
+			Physics2D.IgnoreCollision(firedProjectile.GetComponent<Collider2D>(), GetComponent<Collider2D>());	
+			powerUpUsesLeft -= 1;
+		}
+
+	}
+
+	void FireArrow() {
+		if (powerUpUsesLeft > 0) {
+			firedProjectile = Instantiate(arrowProjectile, transform.position, transform.rotation) as GameObject;
+			firedProjectile.GetComponent<Rigidbody2D>().AddForce(new Vector2((isFacingRight?1:-1) * 1000, 250));
+			Physics2D.IgnoreCollision(firedProjectile.GetComponent<Collider2D>(), GetComponent<Collider2D>());	
+			powerUpUsesLeft -= 1;
+		}
+	}
 
 }
