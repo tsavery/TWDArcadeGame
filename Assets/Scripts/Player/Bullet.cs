@@ -19,15 +19,18 @@ public class Bullet : MonoBehaviour {
 
 		if(collision.gameObject.layer == 8 ) {
 			Debug.Log("Hit");
-			collision.gameObject.SendMessage("OnHit");
+			collision.gameObject.SendMessage("OnHit", gameObject);
 			Destroy(gameObject);
 		}
 	}
 	void OnTriggerEnter2D(Collider2D other) {
-		if((other.GetComponentInParent<Player>().shieldHitBox == other) && (other.GetComponentInParent<Player>().shieldOn == true)) {
-			other.GetComponentInParent<Player>().powerUpUsesLeft -= 1;
-			Destroy(gameObject);
+		if(other.tag == "Player") {
+			if((other.GetComponent<Player>().shieldOn == true)) {
+				other.GetComponent<Player>().powerUpUsesLeft -= 1;
+				Destroy(gameObject);
+			}
 		}
+
 			
 	}
 
