@@ -65,7 +65,7 @@ public class PlayerController2D : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	
+		
 	}
 
 	//updates the positions of the corners
@@ -95,7 +95,7 @@ public class PlayerController2D : MonoBehaviour
 		verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
 	}
 	//moves the character based on gravity and input
-	public void Move(Vector3 velocity) 
+	public void Move(Vector3 velocity, float localscalex) 
 	{
 		UpdateRayCastCorners();
 		collisions.resetInfo();
@@ -105,7 +105,14 @@ public class PlayerController2D : MonoBehaviour
 			DescendSlope(ref velocity);
 		}
 		if (velocity.x != 0) {
-			HorizontalCollisions(ref velocity);
+			if(localscalex > 0) {
+				HorizontalCollisions(ref velocity, localscalex);
+			}
+			else if(localscalex < 0) {
+				//velocity.x *= -1;
+				HorizontalCollisions(ref velocity, localscalex );
+			}
+
 		}
 		if (velocity.y != 0) {
 			VerticalCollisions(ref velocity);
@@ -218,7 +225,7 @@ public class PlayerController2D : MonoBehaviour
 		}
 	}
 	//detects horizontal collisions and adjusts the velocity accordingly
-	void HorizontalCollisions(ref Vector3 velocity) 
+	void HorizontalCollisions(ref Vector3 velocity, float localscalex) 
 	{
 
 		float directionX = Mathf.Sign(velocity.x);
@@ -236,8 +243,18 @@ public class PlayerController2D : MonoBehaviour
 				RayOrigin = raycastCorners.bottomRight;
 			}
 			RayOrigin += Vector2.up * (horizontalRaySpacing * i);
-			RaycastHit2D hit = Physics2D.Raycast(RayOrigin, Vector2.right * directionX, raylength, collisionMask);
+			RaycastHit2D hit;
+			if(localscalex > 0) {
 
+				hit = Physics2D.Raycast(RayOrigin, Vector2.right * directionX, raylength, collisionMask);
+
+			}
+			else {
+				directionX *= Mathf.Sign(localscalex);
+				hit = Physics2D.Raycast(RayOrigin, Vector2.left, raylength, collisionMask);
+
+			}
+				
 			if (hit)
 			{
 				//slope detection
