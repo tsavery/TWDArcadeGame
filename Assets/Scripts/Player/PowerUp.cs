@@ -18,7 +18,6 @@ public class PowerUp : MonoBehaviour {
 			parentSpawner.SendMessage("OnPickedUpPowerUp");
 			Destroy(this.gameObject);
 		}
-
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
@@ -38,10 +37,6 @@ public class PowerUp : MonoBehaviour {
 			}
 			else if(powerUpType == Player.PowerUp.Shield) {
 				other.GetComponentInParent<Player>().currentPowerUp = Player.PowerUp.Shield;
-				other.GetComponentInParent<Player>().powerUpUsesLeft = 3;
-			}
-			else if(powerUpType == Player.PowerUp.Blink) {
-				other.GetComponentInParent<Player>().currentPowerUp = Player.PowerUp.Blink;
 				other.GetComponentInParent<Player>().powerUpUsesLeft = 3;
 			}
 
